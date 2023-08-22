@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
+
 public class Person {
     private int id;
     @NotEmpty(message = "Name should not be empty.")

@@ -9,14 +9,14 @@
 <p th:text ="${person.getAge()}"></p>
 <p th:text ="${person.getId()}"></p>
 
-<div th:if="${books}">
+<div th:if="${!books.isEmpty()}">
     <span>Current user has this list of books:</span>
     <table th:each="book : ${books}">
         <tr th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
     </table>
 </div>
 
-<div th:if="!${books}">
+<div th:if="${books.isEmpty()}">
     <span>Current user has no books.</span>
 </div>
 
