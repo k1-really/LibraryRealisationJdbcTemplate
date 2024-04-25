@@ -52,6 +52,4 @@ public class BookDAO {
         return jdbcTemplate.query("SELECT Person.* FROM Person INNER JOIN Book ON Book.person_id = Person.id WHERE Book.id = ?", new Object[]{bookId},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
-
-
 }

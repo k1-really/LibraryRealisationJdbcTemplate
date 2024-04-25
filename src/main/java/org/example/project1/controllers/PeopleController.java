@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-
     private PersonDAO personDAO;
     private PersonValidator personValidator;
-    //мб неверно
+
     @Autowired
     public PeopleController(PersonDAO personDAO,PersonValidator personValidator) {
         this.personDAO = personDAO;
@@ -25,14 +24,12 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model) {
-        // получим всех людей из DAO
         model.addAttribute("people",personDAO.index());
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        //Получим одного человека по id
         model.addAttribute("person",personDAO.show(id));
         model.addAttribute("books",personDAO.getBooksByPersonId(id));
         return "people/show";
@@ -55,7 +52,7 @@ public class PeopleController {
     }
 
     @GetMapping("/{id}/edit")
-public String edit(Model model, @PathVariable("id") int id){
+    public String edit(Model model, @PathVariable("id") int id){
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
@@ -76,6 +73,4 @@ public String edit(Model model, @PathVariable("id") int id){
         personDAO.delete(id);
         return "redirect:/people";
     }
-
-
 }

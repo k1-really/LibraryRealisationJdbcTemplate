@@ -19,30 +19,27 @@ import java.util.Optional;
 public class BooksController {
     private BookDAO bookDAO;
     private PersonDAO personDAO;
-@Autowired
+    @Autowired
     public BooksController(BookDAO bookDAO, PersonDAO personDAO) {
         this.bookDAO = bookDAO;
-    this.personDAO = personDAO;
-}
+        this.personDAO = personDAO;
+    }
 
     @GetMapping()
     public String index(Model model){
-    model.addAttribute("books",bookDAO.index());
-    return "books/index";
+        model.addAttribute("books",bookDAO.index());
+        return "books/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
-        //Получим одну книгу по id
         model.addAttribute("book",bookDAO.show(id));
         Optional<Person> owner = bookDAO.getBookOwner(id);
-
         if(bookDAO.getBookOwner(id).isPresent()){
             model.addAttribute("owner",owner.get());
         } else{
             model.addAttribute("people",personDAO.index());
         }
-
         return "books/show";
     }
 

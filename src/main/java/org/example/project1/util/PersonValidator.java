@@ -26,6 +26,5 @@ private final PersonDAO personDAO;
         if(personDAO.show(person.getName()).isPresent()){
             errors.rejectValue("name","","This name already taken!");
         }
-
     }
 }

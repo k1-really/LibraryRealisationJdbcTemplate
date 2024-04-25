@@ -3,14 +3,10 @@ package org.example.project1.dao;
 import org.example.project1.models.Book;
 import org.example.project1.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +22,12 @@ public class PersonDAO {
     public List<Person> index(){
         return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
     }
+
     public Optional<Person> show(String name){
         return jdbcTemplate.query("SELECT * FROM Person WHERE name=?",new Object[]{name}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny();
     }
+
     public Person show(int id){
         return jdbcTemplate.query("SELECT * FROM Person WHERE id =?",new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
@@ -50,5 +48,4 @@ public class PersonDAO {
     public List<Book> getBooksByPersonId(int id){
         return jdbcTemplate.query("SELECT Book.* FROM Book WHERE Book.person_id=?",new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
-
 }
